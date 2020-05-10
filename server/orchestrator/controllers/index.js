@@ -8,7 +8,6 @@ class MainController {
   static async entertainme(req, res, next) {
     try {
       const data = await redis.get('entertainme')
-      console.log(data);
       if (data) {
         res.status(200).json(JSON.parse(data))
       } else {

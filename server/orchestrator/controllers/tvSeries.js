@@ -30,7 +30,6 @@ class TvSeriesController {
           const { data } = await tvSeriesAxios.get("/movies/" + id);
           res.status(400).json({ message: "movie not found" });
         } else {
-          console.log("data dari redis");
           res.status(200).json(selectMovie[0]);
         }
         res.status(200).json(JSON.parse(data))
@@ -75,7 +74,6 @@ class TvSeriesController {
       };
       const { data } = await tvSeriesAxios.put(`/movies/${id}`, movie);
       redis.del("movies");
-      console.log("masuk api")
       if (!data.modifiedCount) {
         res.status(400).json({ message: "movie not found" });
       }

@@ -16,8 +16,6 @@ class MovieController {
       }
 
     } catch (error) {
-      console.log(error);
-      // res.send(error)
       res.status(404).json(error)
     }
   }
@@ -32,7 +30,6 @@ class MovieController {
           const { data } = await moviesAxios.get("/movies/" + id);
           res.status(400).json({ message: "movie not found" });
         } else {
-          console.log("data dari redis");
           res.status(200).json(selectMovie[0]);
         }
         res.status(200).json(JSON.parse(data))
@@ -77,7 +74,6 @@ class MovieController {
       };
       const { data } = await moviesAxios.put(`/movies/${id}`, movie);
       redis.del("movies");
-      console.log("masuk api")
       if (!data.modifiedCount) {
         res.status(400).json({ message: "movie not found" });
       }

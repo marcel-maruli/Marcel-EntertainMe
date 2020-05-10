@@ -2,7 +2,6 @@ import { ALL_MOVIES } from '../schemas/movies';
 
 export const addMovie = (_, variable, client) => {
   const { movies } = client.cache.readQuery({ query: ALL_MOVIES });
-  console.log(variable, '<<<<<<<<<<<<<<<<<<<<<<<<<<<');
   const newMovie = {
     __typename: 'Movie',
     _id: variable._id,

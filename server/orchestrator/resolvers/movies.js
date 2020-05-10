@@ -10,12 +10,10 @@ const moviesQueryResolver = {
       const movies = await redis.get("movies");
       const parsedMovies = JSON.parse(movies);
       if (!parsedMovies || !parsedMovies.length) {
-        console.log("masuk api")
         const { data } = await moviesAxios.get("/movies");
         await redis.set("movies", JSON.stringify(data));
         return data;
       } else {
-        console.log("masuk redis");
         return parsedMovies
       }
     } catch (err) {
@@ -44,7 +42,6 @@ const moviesQueryResolver = {
 const moviesMutationResolver = {
   addMovie: async (_, args) => {
     try {
-      console.log(args);
       const newMovieData = {
         title: args.title,
         overview: args.overview,
@@ -54,7 +51,6 @@ const moviesMutationResolver = {
       };
       const { data } = await moviesAxios.post("/movies", newMovieData);
       await redis.del("movies");
-      console.log(data);
       return data;
     } catch (err) {
       return err;
